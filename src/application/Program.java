@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -25,10 +24,7 @@ public class Program {
 		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 			
 			List <Employee> employees = new ArrayList<>();
-			
-			System.out.print("Enter salary: ");
-			double salary = sc.nextDouble();
-			
+						
 			String line = br.readLine();
 			while (line != null) {
 				String[] employeeCsv = line.split(",");
@@ -36,12 +32,13 @@ public class Program {
 				line = br.readLine();
 			}
 			
-			Comparator <String> comp = (s1,s2) -> s1.toUpperCase().compareTo(s2.toUpperCase());
+			System.out.print("Enter salary: ");
+			double salary = sc.nextDouble();
 			
 			List <String> email = employees.stream()
 					.filter(emp -> emp.getSalary() > salary)
 					.map(emp -> emp.getEmail())
-					.sorted(comp)
+					.sorted()
 					.collect(Collectors.toList());
 			System.out.println("email of people whose salary is more than 2000.00: ");
 			email.forEach(System.out::println);
